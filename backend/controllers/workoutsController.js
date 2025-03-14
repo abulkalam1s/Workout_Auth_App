@@ -39,6 +39,7 @@ const getWorkout = async (req, res) => {
 const createWorkout = async (req, res) => {
   const { title, reps, load } = req.body;
 
+  // to keep track which field is missing, will get pushed here. So later alert for that input field will be generated.
   let emptyFields = [];
   if (!title) {
     emptyFields.push("title");
@@ -51,7 +52,7 @@ const createWorkout = async (req, res) => {
   }
 
   if (emptyFields.length > 0) {
-    // if emptyFields.length > 0 we will not go below code, will return from here only
+    // if emptyFields.length > 0, means some fields is missing .'. we will not go below code, will return from here only
     return res
       .status(400)
       .json({ error: "Please fill in all fields", emptyFields });
@@ -88,9 +89,11 @@ const deleteWorkout = async (req, res) => {
 // to update a workout
 const updateWorkout = async (req, res) => {
   const { id } = req.params;
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(404).json({ message: "Invalid Id" });
   }
+
   const workout = await Workout.findOneAndUpdate(
     { _id: id },
     {

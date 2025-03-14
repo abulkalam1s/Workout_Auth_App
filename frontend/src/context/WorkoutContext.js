@@ -1,7 +1,5 @@
 import { createContext, useReducer } from "react";
 
-export const WorkoutContext = createContext();
-
 // reducer function
 export const workoutReducer = (state, action) => {
   switch (action.type) {
@@ -24,6 +22,9 @@ export const workoutReducer = (state, action) => {
       return state;
   }
 };
+
+// Create context
+export const WorkoutContext = createContext();
 
 // Creating Context Component
 export const WorkoutsContextProvider = ({ children }) => {

@@ -10,13 +10,18 @@ const {
   updateWorkout,
 } = require("../controllers/workoutsController");
 
-// GET
+const requireAuth = require("../middleware/requireAuth");
+
+// require auth middleware for all workout routes, for auth
+router.use(requireAuth);
+
+// GET: all
 router.get("/", getWorkouts);
 
 // GET:id
 router.get("/:id", getWorkout);
 
-// // POST
+// POST
 router.post("/", validateWorkout, createWorkout); // validateWorkout - is a middleware
 
 // DELETE:id
